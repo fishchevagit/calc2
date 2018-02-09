@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="CalcDB"
+                   namespace="CalcDB.Models">
+
+  <class name="User" table="[User]">
+    <id name="Id">
+      <generator class="identity" />
+    </id>
+    <property name="FirstName" />
+    <property name="LastName" />
+    <property name="Email" />
+    <property name="Login" />
+    <property name="Password" />
+    <property name="Status" />
+
+    <many-to-one name="Role" class="Role" lazy="false"/>
+    
+    <bag name="Subscriptions" table="[UserSub]">
+      <key column="UserId"/>
+      <many-to-many class="Subscription" column="SubsId"/>
+    </bag>
+
+  </class>
+
+</hibernate-mapping>

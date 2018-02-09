@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CalcDB.Models.OperationResult>
+
+@{
+    ViewBag.Title = "История";
+}
+
+<h2>Результаты операций</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Operation.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Args)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExecutionTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Error)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Operation.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Args)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExecutionTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Error)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author.FirstName)
+        </td>
+    </tr>
+}
+
+</table>

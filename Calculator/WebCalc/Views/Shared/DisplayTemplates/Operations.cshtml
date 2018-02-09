@@ -1,0 +1,14 @@
+﻿@model IEnumerable<WebCalc.Models.OperationViewModel>
+
+<table class="table">
+    <tr>
+        <th colspan="5">Операции
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @Html.DisplayFor(m => item)
+    }
+
+</table>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CalcDB.Models.User>
+
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+<h2>Список пользователей</h2>
+
+<p>
+    @Html.ActionLink("Создать пользователя", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Login)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Посмотреть", "Details", new { id = item.Id }) |
+                <button type="button" id="ban_@(item.Id)" onclick="ban(@item.Id)" class="btn btn-warning">
+                    @(item.Status == CalcDB.Models.UserStatus.Blocked ? "Разбанить" : "Забанить")
+                </button>
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class="btn btn-danger"})
+                @Html.ActionLink("Подписки", "Subscr", new { id = item.Id }, new { @class = "btn" })
+</td>
+        </tr>
+    }
+
+</table>
+<div id="error"></div>
+<script type="text/javascript">
+    function ban(id) {
+        $("#error").empty();
+        $.ajax({
+            url: "@(Url.Action("Ban", "Admin"))",
+            method: "POST",
+            data: { id }
+        })
+        .success(function (result) {
+            if (result.success) {
+                $("#ban_" + id).html(result.message);
+            } else {
+                $("#error").html(result.error);
+            }
+        }
+        );
+    }
+</script>

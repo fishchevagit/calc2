@@ -1,0 +1,42 @@
+﻿@model WebCalc.Models.CalcModel
+@{
+    var operations = new SelectList(Model.Operations);
+}
+
+@using (Html.BeginForm("Exec", "Calc"))
+{
+    <div class="form-group">
+        <label for="operation">Операция</label>
+        @Html.DropDownList("operation", operations, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <label for="operation">Входные данные</label>
+        @Html.TextBox("args", null, new { @class = "form-control" })
+    </div>
+
+}
+
+<button class="btn btn-success" onclick="CalcAjax();">Вычислить</button>
+
+<div id="result">
+</div>
+
+<script type="text/javascript">
+    function CalcAjax() {
+       
+        $("#result").html("<h2>Подождите 5 сек.</h2><img src='http://yandex.ru/images/today?size=1920x1080' width='480' height='320' />")
+
+        setTimeout(function () {
+
+            $.ajax({
+                url: "@(Url.Action("Exec", "Calc"))",
+                method: "POST",
+                data: $("form").serialize()
+            })
+            .success(function (result) { $("#result").html(result); }
+            );
+
+        }, 5000);
+    }
+</script>

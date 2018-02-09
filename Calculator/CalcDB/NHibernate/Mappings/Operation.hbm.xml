@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="CalcDB"
+                   namespace="CalcDB.Models">
+
+  <class name="Operation" table="[Operation]">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="Name" />
+    
+    <many-to-one name="Owner" class="User" column="OwnerId" lazy="false"/>
+
+    <bag name="Subscriptions" table="[SubsOperations]" inverse="true">
+      <key column="OperationId"/>
+      <many-to-many class="Subscription" column="SubsId"/>
+    </bag>
+    
+  </class>
+
+</hibernate-mapping>

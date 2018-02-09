@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="CalcDB"
+                   namespace="CalcDB.Models">
+
+  <class name="OperationResult" table="[OperationResult]">
+    <id name="Id">
+      <generator class="native" />
+    </id>
+    <property name="Args" />
+    <property name="Result" />
+    <property name="ExecutionTime" />
+    <property name="CreationDate" />
+    <property name="Error" />
+    
+    <many-to-one name="Author" class="User" column="AuthorId" lazy="false"/>
+
+    <many-to-one name="Operation" class="Operation" column="OperationId" lazy="false"/>
+
+  </class>
+
+</hibernate-mapping>
