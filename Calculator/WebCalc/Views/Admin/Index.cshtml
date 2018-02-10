@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Список пользователей";
+    
 }
 
 <h2>Список пользователей</h2>
@@ -47,9 +48,9 @@
                 <button type="button" id="ban_@(item.Id)" onclick="ban(@item.Id)" class="btn btn-warning">
                     @(item.Status == CalcDB.Models.UserStatus.Blocked ? "Разбанить" : "Забанить")
                 </button>
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class="btn btn-danger"})
-                @Html.ActionLink("Подписки", "Subscr", new { id = item.Id }, new { @class = "btn" })
-</td>
+                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Подписки", "Subscr", new { id = item.Id  }, new { @class = "btn" })
+            </td>
         </tr>
     }
 

@@ -103,7 +103,7 @@ namespace CalcDB.Repositories
         protected Type enityType { get; set; }
 
         // todo - вынести в настройки
-        protected string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\kursi\20170122\calc2\-\Calculator\CalcDB\AppData\CalcDB.mdf;Integrated Security=True";
+        protected string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\kursi\20170122\1\calc2\Calculator\CalcDB\AppData\CalcDB.mdf;Integrated Security=True";
 
         #endregion
     }

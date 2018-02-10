@@ -32,6 +32,17 @@ namespace CalcDB.NHibernate.Repositories
                        .As<long>())
                     .List(); */
             }
+            
+        }
+        public Subscription GetByName(string name)
+        {
+            using (var session = Helper.OpenSession())
+            {
+                
+                return session.QueryOver<Subscription>()
+                        .Where(s => s.Name == name)
+                        .SingleOrDefault();
+            }
         }
     }
 }

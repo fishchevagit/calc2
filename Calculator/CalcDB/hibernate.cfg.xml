@@ -4,7 +4,7 @@
     <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
     <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
     <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
-    <property name="connection.connection_string">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\kursi\20170122\calc2\-\Calculator\CalcDB\AppData\CalcDB.mdf;Integrated Security=True</property>
+    <property name="connection.connection_string">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\kursi\20170122\1\calc2\Calculator\CalcDB\AppData\CalcDB.mdf;Integrated Security=True</property>
 
     <property name="show_sql">true</property>
   </session-factory>

@@ -2,11 +2,16 @@
 
 @{
     ViewBag.Title = "Подписки пользователя";
-    var Allsubscriptions = new SelectList(Model.Select(it=>it.Name));
+    CalcDB.Repositories.ISubscriptionRepository NHSubscriptionRepository  =
+        new CalcDB.NHibernate.Repositories.NHSubscriptionRepository();
+
+    var Allsubs = NHSubscriptionRepository.GetAll();
+    var Allsubscriptions = new SelectList( Allsubs.Select(i=>i.Name));
+           //var Allsubscriptions = new SelectList( new string[] { "a","b","c" }) ;
 }
 
 
-    <h2>"Подписки"</h2>
+    <h2>Подписки</h2>
     
     <table class="table">
         <tr>
@@ -36,7 +41,7 @@
             <td>
                
                 @Html.ActionLink("Показать", "DetailsSubs", new { id=item.Id }) |
-                @Html.ActionLink("Удалить", "DeleteSubs", new { id=item.Id , user.id })
+                @Html.ActionLink("Удалить", "DeleteSubs", new { id=item.Id })
             </td>
         </tr>
     }
@@ -48,5 +53,8 @@
 <div class="form-group">
     <label for="subscription">Добавить подписку</label>
     @Html.DropDownList("subscription", Allsubscriptions, new { @class = "form-control" })
+    @Html.Submit("Добавить")
+    @*@Html.ActionLink("Добавить", "AddSubs", new { name = subscription }, new { @class = "btn btn-danger" })*@
 </div>
 }
+

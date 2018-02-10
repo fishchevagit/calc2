@@ -5,6 +5,6 @@ namespace CalcDB.Repositories
 {
     public interface IUserSubsRepository  : IRepository<UserSubs>
     {
-        void DeleteBySubs(long IdSubs, User user);
+         UserSubs UserSubsByIdUserIdSubs(long IdSubs, User user);
     }
 }

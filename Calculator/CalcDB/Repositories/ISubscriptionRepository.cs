@@ -6,5 +6,6 @@ namespace CalcDB.Repositories
     public interface ISubscriptionRepository : IRepository<Subscription>
     {
         IList<Subscription> GetByUser(User user);
+        Subscription GetByName(string name);
     }
 }

@@ -4,6 +4,8 @@ using CalcDB.Repositories;
 using System.Web.Mvc;
 using WebCalc.Models;
 using System.Linq;
+using System.Web;
+using System;
 
 namespace WebCalc.Controllers
 {
@@ -16,6 +18,8 @@ namespace WebCalc.Controllers
 
         protected IOperationRepository NHOperationRepository { get; set; }
         protected IUserSubsRepository NHUserSubsRepository { get; set; }
+        //HttpCookie cookie;
+        //User currentUser;
 
         public AdminController()
         {
@@ -23,6 +27,8 @@ namespace WebCalc.Controllers
             NHSubscriptionRepository = new NHSubscriptionRepository();
             NHOperationRepository = new NHOperationRepository();
             NHUserSubsRepository = new NHUserSubsRepository();
+            //currentUser = new User();
+            //cookie = new HttpCookie("My localhost cookie");
         }
 
         // GET: Admin
@@ -73,8 +79,12 @@ namespace WebCalc.Controllers
         public ActionResult Subscr(long id)
         {
             var user = UserRepository.Get(id);
+            
+            HttpCookie cookName = new HttpCookie("currentUserId");
+            cookName.Value = id.ToString();
+            Response.Cookies.Add(cookName);
+            //currentUser = user;
             var subscrs = NHSubscriptionRepository.GetByUser(user);
-
             return View(subscrs);
         }
         public ActionResult DetailsSubs(long id)
@@ -126,21 +136,53 @@ namespace WebCalc.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult DeleteSubs(long id, User user)
+        public ActionResult DeleteSubs(long id)
         {
             var subs = NHSubscriptionRepository.Get(id);
             if (subs == null)
                 return RedirectToAction("Subscr");
-
-            NHUserSubsRepository.DeleteBySubs(subs.Id, user);
-
-            return RedirectToAction("Subscr");
+            HttpCookie cookieReq = Request.Cookies["currentUserId"];
+            string tmp=null;
+            if (cookieReq != null)
+            {
+                tmp = cookieReq.Value;
+            }
+            long currentUserId = Convert.ToInt64(tmp);
+            var user = UserRepository.Get(currentUserId);
+            var UserSubs =  NHUserSubsRepository.UserSubsByIdUserIdSubs(subs.Id, user);
+            NHUserSubsRepository.Delete(UserSubs.Id);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult AddSubs(string subscription)
         {
-            return View();
+
+            /*if (ModelState.IsValid)
+            {
+                var subs = NHSubscriptionRepository.GetByName(subscription);
+                
+                HttpCookie cookieReq = Request.Cookies["currentUserId"];
+                string tmp = null;
+                if (cookieReq != null)
+                {
+                    tmp = cookieReq.Value;
+                }
+                long currentUserId = Convert.ToInt64(tmp);
+                var user = UserRepository.Get(currentUserId);
+
+                UserSubs us = new UserSubs ()
+                {
+                    SubsId = subs.Id,
+                    
+                    UserId = user.Id
+                };
+                NHUserSubsRepository.Save(us);
+
+                return RedirectToAction("Index");
+            }*/
+            return null;//View();
+            
         }
     }
 }
